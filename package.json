@@ -1,0 +1,32 @@
+{
+  "name": "E05",
+  "version": "1.0.0",
+  "description": "* example of a [Monorepo Architecture](https://levelup.gitconnected.com/monorepo-architecture-with-simple-example-484ca725bf2c)",
+  "main": "index.js",
+  "scripts": {
+    "start": "npm run client & npm run server",
+    "client": "cd client && npm run dev",
+    "server": "cd server && npm run start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SyTW2324/E05.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SyTW2324/E05/issues"
+  },
+  "homepage": "https://github.com/SyTW2324/E05#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "vue": "^3.3.7"
+  },
+  "devDependencies": {
+    "@types/node": "^20.8.10",
+    "@vue/cli-service": "^5.0.8",
+    "concurrently": "^8.2.2",
+    "typescript": "^5.2.2"
+  }
+}
