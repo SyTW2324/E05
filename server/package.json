@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "Descripción de tu servidor",
   "main": "server.js",
-  "type": "module",
+  "type": "commonjs",
   "scripts": {
-    "start": "node src/server.mjs"
+    "start": "tsc src/server.ts && node src/server.js"
   },
   "keywords": [],
   "author": "Tu autor",
@@ -16,6 +16,7 @@
     "express": "^4.18.2",
     "mongoose": "^8.0.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  }
 }
-
