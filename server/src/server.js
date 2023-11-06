@@ -39,14 +39,16 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express = require('express');
 var cors = require('cors');
 var User_js_1 = require("./models/User.js");
+var db_js_1 = require("./db.js");
 var app = express();
 var port = 3000;
 app.use(express.json());
 app.use(cors({ origin: '*' }));
 // Configura rutas y controladores aquí
-/**connectToDatabase()
-  .then(() => console.log('Conectado a la base de datos'))
-  .catch(error => console.error(error));*/
+// Llama a la función para conectar a la base de datos
+(0, db_js_1.connectToDatabase)()
+    .then(function () { return console.log('Conectado a la base de datos'); })
+    .catch(function (error) { return console.error(error); });
 app.listen(port, function () {
     console.log("Servidor escuchando en http://localhost:".concat(port));
 });
@@ -54,32 +56,33 @@ app.get('/', function (req, res) {
     res.send('Esta es la página de inicio del servidor');
 });
 app.post('/usuarios', function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
-    var _a, nombre, email, contrasena, usuarioExiste, usuario, error_1;
+    var _a, email, contrasena, nombre, usuario, error_1;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
-                _b.trys.push([0, 3, , 4]);
-                _a = req.body, nombre = _a.nombre, email = _a.email, contrasena = _a.contrasena;
-                if (!nombre || !email || !contrasena) {
-                    res.status(400).json({ error: 'Faltan datos' });
-                }
-                return [4 /*yield*/, User_js_1.User.findOne({ email: email })];
-            case 1:
-                usuarioExiste = _b.sent();
-                if (usuarioExiste) {
+                _b.trys.push([0, 5, , 6]);
+                _a = req.body, email = _a.email, contrasena = _a.contrasena, nombre = _a.nombre;
+                if (!(!nombre || !email || !contrasena)) return [3 /*break*/, 1];
+                res.status(400).json({ error: 'Faltan datos' });
+                return [3 /*break*/, 4];
+            case 1: return [4 /*yield*/, User_js_1.User.exists({ email: email })];
+            case 2:
+                if (_b.sent()) {
                     res.status(400).json({ error: 'El usuario ya existe' });
+                    return [2 /*return*/];
                 }
                 usuario = new User_js_1.User({ nombre: nombre, email: email, contrasena: contrasena });
                 return [4 /*yield*/, usuario.save()];
-            case 2:
+            case 3:
                 _b.sent();
                 res.status(201).json({ mensaje: 'Usuario creado con éxito' });
-                return [3 /*break*/, 4];
-            case 3:
+                _b.label = 4;
+            case 4: return [3 /*break*/, 6];
+            case 5:
                 error_1 = _b.sent();
                 res.status(500).json({ error: error_1.message });
-                return [3 /*break*/, 4];
-            case 4: return [2 /*return*/];
+                return [3 /*break*/, 6];
+            case 6: return [2 /*return*/];
         }
     });
 }); });
