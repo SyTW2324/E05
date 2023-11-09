@@ -21,6 +21,9 @@ import { RouterLink, RouterView } from 'vue-router'
             <li class="nav-item">
               <router-link to="/register" class="nav-link">Registro</router-link>
             </li>
+            <li class="nav-item">
+              <router-link to="/Contact" class="nav-link">Sobre Nosotros</router-link>
+            </li>
           </ul>
         </div>
       </nav>
