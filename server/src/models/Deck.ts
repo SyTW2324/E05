@@ -2,14 +2,14 @@ import mongoose, { Schema, Document } from 'mongoose';
 
 // Define una interfaz IDeck que extiende Document para especificar la estructura de un documento de usuario
 interface IDeck extends Document {
-  nombre: string;
+  email: string;
   titulo: string;
   deck: string[];
 }
 
 // Define el esquema del usuario utilizando la clase Schema de Mongoose
 const DeckSchema: Schema = new Schema({
-  nombre: {
+  email: {
     type: String,
     required: true,
   },
