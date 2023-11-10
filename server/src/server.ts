@@ -1,8 +1,7 @@
-const cors = require('cors');
-const { connectToDatabase } = require('./db.js');
-import {usuariosRouter } from './routers/usuariosRouter.js';
-const express = require('express');
-
+import cors from 'cors';
+import { connectToDatabase } from './db';
+import {usuariosRouter } from './routers/usuariosRouter';
+import express from 'express';
 const app = express();
 const port = 3000;
 

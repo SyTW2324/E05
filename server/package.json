@@ -2,10 +2,8 @@
   "name": "server",
   "version": "1.0.0",
   "description": "Descripción de tu servidor",
-  "main": "server.js",
-  "type": "commonjs",
   "scripts": {
-    "start": "tsc src/server.ts && node src/server.js"
+    "start": "ts-node src/server.ts"
   },
   "keywords": [],
   "author": "Tu autor",
@@ -17,6 +15,7 @@
     "mongoose": "^8.0.0"
   },
   "devDependencies": {
+    "ts-node": "^10.9.1",
     "typescript": "^5.2.2"
   }
 }
