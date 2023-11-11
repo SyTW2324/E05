@@ -18,5 +18,6 @@ describe('Página de Inicio', () => {
 
     cy.get('.buttons .action-button').eq(1).should('be.visible').and('have.text', 'Iniciar Sesión').click();
     cy.url().should('include', '/login');
+
   });
 });
