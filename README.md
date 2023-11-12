@@ -7,5 +7,4 @@ Para que funcione al clonar hay que poner los siguientes comandos:
 ```
 nvm install 16
 nvm use 16
-
 ```
