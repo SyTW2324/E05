@@ -19,9 +19,18 @@ export default {
         email: this.email,
         contrasena: this.contrasena
       };
-
+      try {
+        const response = await axios.post('http://localhost:3000/usuarios/login', Usuario);
+        const token = response.data.token;
+        localStorage.setItem('token', token);
+        this.$router.push('/Main');
+      } catch (error) {
+        // Maneja errores de red o de solicitud
+        console.error('Error en la solicitud:', error);
+        this.mensaje = 'Error en la solicitud';
+        alert('Error en la solicitud');
+      }
     }
-
   }
 }
 </script>
