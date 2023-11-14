@@ -1,6 +1,7 @@
 import { User } from './../models/User';
 import jwt from 'jsonwebtoken';
 import express from 'express';
+import { truncateSync } from 'fs';
 export const usuariosRouter = express.Router();
 
 usuariosRouter.post('/usuarios', async (req, res) => {
@@ -46,4 +47,15 @@ usuariosRouter.post('/usuarios/login', async (req, res) => {
   }
 });
 
+usuariosRouter.get('/usuarios', async (req, res) => {
+  try{
+  //a traves del token se puede obtener el usuario
+    const token = req.headers.authorization?.split(' ')[1];
+    const decoded = jwt.verify(token, 'secreto');
+    const decodednombre = decoded.nombre;
+    res.json({decodednombre});
+  }catch(error){
+    res.status(500).json({ error: error.message });
+  }
+});
 

@@ -1,36 +1,45 @@
 <template>
-  <div class="Página principal">
-  <div class="background">
-  <div class="content-box">
-    <h1>Página principal</h1>
-  </div>
-  </div>
+  <div class="main-page">
+    <div class="background">
+      <div class="content-box">
+        <h1>Bienvenido {{ usuarioNombre }}</h1>
+      </div>
+    </div>
   </div>
 </template>
 
-<style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
-}
+<script>
+import axios from 'axios';
 
-.background {
-  background-image: url('https://wallpapercosmos.com/w/middle-retina/4/1/1/1430-3840x2160-desktop-4k-hearthstone-background-photo.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-  text-align: center;
-  margin-top: 0px;
-  height: 100vh;
-}
+export default {
+  data() {
+    return {
+      usuarioNombre: '',
+    };
+  },
+  mounted() {
+    // Obtén el token de alguna manera (puedes guardarlo en el localStorage, por ejemplo)
+    const token = localStorage.getItem('token');
 
-.content-box {
-  background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco semi-transparente */
-  border: 1px solid #ccc; /* Borde gris */
-  border-radius: 10px; /* Borde redondeado */
-  padding: 20px;
-  text-align: center;
-}
+    // Realiza una solicitud GET al servidor al cargar el componente
+    axios.get('http://localhost:3000/usuarios', {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`,
+      },
+    })
+      .then((response) => {
+        // Accede directamente a los datos en lugar de llamar a response.json()
+        this.usuarioNombre = response.data.decodednombre;
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error('Error al obtener la información del usuario:', error);
+      });
+  },
+};
+</script>
+
+<style scoped>
+/* Estilos de tu componente */
 </style>
