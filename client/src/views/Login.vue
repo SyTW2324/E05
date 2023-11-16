@@ -1,38 +1,35 @@
 <script lang="ts">
-import axios from 'axios';
 import validator from 'validator';
+import { useAuthStore } from '@/store';
+
 export default {
   data() {
     return {
       email: '',
       contrasena: '',
-      mensaje: ''
+      mensaje: '',
     };
   },
   methods: {
     async login() {
+      const authStore = useAuthStore();
+
       if (!validator.isEmail(this.email)) {
         alert('El correo electrónico no es válido');
         return;
       }
-      const Usuario = {
-        email: this.email,
-        contrasena: this.contrasena
-      };
-      try {
-        const response = await axios.post('http://localhost:3000/usuarios/login', Usuario);
-        const token = response.data.token;
-        localStorage.setItem('token', token);
+
+      const { success, message } = await authStore.login(this.email, this.contrasena);
+
+      if (success) {
         this.$router.push('/Main');
-      } catch (error) {
-        // Maneja errores de red o de solicitud
-        console.error('Error en la solicitud:', error);
-        this.mensaje = 'Error en la solicitud';
-        alert('Error en la solicitud');
+      } else {
+        this.mensaje = message;
+        alert(message);
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <template>

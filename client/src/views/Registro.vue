@@ -1,13 +1,14 @@
 <script lang="ts">
-import axios from 'axios';
+import { useAuthStore } from '../store';
 import validator from 'validator';
+
 export default {
   data() {
     return {
       email: '',
       contrasena: '',
       nombre: '',
-      mensaje: ''
+      mensaje: '',
     };
   },
   methods: {
@@ -23,45 +24,23 @@ export default {
       const Usuario = {
         email: this.email,
         contrasena: this.contrasena,
-        nombre: this.nombre
+        nombre: this.nombre,
       };
-      try {
-        const response = await fetch('http://localhost:3000/usuarios', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(Usuario),
-        });
+      
+      const authStore = useAuthStore();
+      const { success, message } = await authStore.registerUsuario(Usuario);
 
-        if (response.ok) {
-          //muestra el mensaje de respuesta
-          console.log('Usuario registrado');
-          const data = await response.json();
-          this.mensaje = data.mensaje;
-          alert(data.mensaje);
-          // Almacenar el token
-          const token = data.token;
-          localStorage.setItem('token', token);
-          // Redirigir a la página principal
-          this.$router.push('/main');
-        } else {
-          // Maneja errores de respuesta
-          const errorData = await response.json();
-          console.error('Error en la solicitud:', errorData.error);
-          this.mensaje = `Error: ${errorData.error}`;
-          alert(`Error: ${errorData.error}`);
-        }
-      } catch (error) {
-        // Maneja errores de red o de solicitud
-        console.error('Error en la solicitud:', error);
-        this.mensaje = 'Error en la solicitud';
-        alert('Error en la solicitud');
+      if (success) {
+        this.mensaje = message;
+        alert(message);
+        this.$router.push('/main');
+      } else {
+        this.mensaje = message;
+        alert(message);
       }
-    }
-
-  }
-}
+    },
+  },
+};
 </script>
 
 <template>

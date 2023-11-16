@@ -19,7 +19,7 @@ usuariosRouter.post('/usuarios', async (req, res) => {
       const token = jwt.sign({ nombre: usuario.nombre, email: usuario.email }, 'secreto', {
         expiresIn: '1h',
       });
-      res.status(201).json({ mensaje: 'Usuario creado con éxito', token });
+      res.status(201).json({ mensaje: 'Usuario creado con éxito', token, nombre: usuario.nombre, email: usuario.email });
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -41,7 +41,7 @@ usuariosRouter.post('/usuarios/login', async (req, res) => {
       expiresIn: '1h',
     });
     
-    res.json({ mensaje: 'Inicio de sesión exitoso', token });
+    res.json({ mensaje: 'Inicio de sesión exitoso', token, nombre: usuario.nombre, email: usuario.email });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -49,7 +49,7 @@ usuariosRouter.post('/usuarios/login', async (req, res) => {
 
 usuariosRouter.get('/usuarios', async (req, res) => {
   try{
-  //a traves del token se puede obtener el usuario
+    //a traves del token se puede obtener el usuario
     const token = req.headers.authorization?.split(' ')[1];
     const decoded = jwt.verify(token, 'secreto');
     const decodednombre = decoded.nombre;

@@ -1,25 +1,24 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
 import { useRouter } from 'vue-router';
-import { ref } from 'vue';
+import { useAuthStore } from '@/store';
 
 const router = useRouter();
+const authStore = useAuthStore();
 
-const logout = () => {
-  localStorage.removeItem('token');
+function logout() {
+  authStore.clearAuthData();
   router.push('/');
 }
 
-const isAuthenticated = ref(false);
+const isAuthenticated = () => authStore.getIsAuthenticated;
 
 const showLogoutButton = () => {
   const route = router.currentRoute.value;
-  return isAuthenticated.value && route.meta.requiresAuth && !route.meta.hideLogoutButton;
+  return isAuthenticated() && route.meta.requiresAuth && !route.meta.hideLogoutButton;
 };
 
-router.beforeEach((to, from, next) => {
-  isAuthenticated.value = !!localStorage.getItem('token');
-  next();
+router.beforeEach(() => {
+  authStore.isAuthenticated = !!localStorage.getItem('token');
 });
 </script>
 
@@ -33,29 +32,33 @@ router.beforeEach((to, from, next) => {
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
-            <li v-if="!isAuthenticated" class="nav-item">
-              <router-link to="/" class="nav-link">Inicio</router-link>
-            </li>
-            <li v-if="!isAuthenticated" class="nav-item">
-              <router-link to="/login" class="nav-link">Iniciar Sesión</router-link>
-            </li>
-            <li v-if="!isAuthenticated" class="nav-item">
-              <router-link to="/register" class="nav-link">Registro</router-link>
-            </li>
+            <template v-if="!isAuthenticated()">
+              <li class="nav-item">
+                <router-link to="/" class="nav-link">Inicio</router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/login" class="nav-link">Iniciar Sesión</router-link>
+              </li>
+              <li class="nav-item">
+                <router-link to="/register" class="nav-link">Registro</router-link>
+              </li>
+            </template>
             <li class="nav-item">
               <router-link to="/Contact" class="nav-link">Sobre Nosotros</router-link>
             </li>
+            <template v-if="isAuthenticated()">
+              <li class="nav-item">
+                <router-link to="/Main" class="nav-link">Mis mazos</router-link>
+              </li>
+            </template>
             <li class="nav-item">
-              <router-link to="/Main" class="nav-link">Mis mazos</router-link>
+              <button v-if="isAuthenticated()" @click="logout" class="btn btn-link nav-link">Cerrar Sesión</button>
             </li>
-            <li class="nav-item">
-            <button v-if="isAuthenticated && showLogoutButton" @click="logout" class="btn btn-link nav-link">Cerrar Sesión</button>
-          </li>
           </ul>
         </div>
       </nav>
     </header>
-    
+
     <main>
       <router-view></router-view>
     </main>
