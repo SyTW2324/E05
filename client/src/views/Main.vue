@@ -2,7 +2,7 @@
   <div class="main-page">
     <div class="background">
       <div class="content-box">
-        <h1>Bienvenido {{ usuarioNombre }}</h1>
+        <h1>Bienvenido {{ nombreUsuario }}</h1>
       </div>
       <div class="columns-container">
         <div class="column">
@@ -30,34 +30,18 @@
   </div>
 </template>
 
-<script>
-import axios from 'axios';
+<script lang="ts">
+import { useAuthStore } from '@/store';
 
 export default {
   data() {
     return {
-      usuarioNombre: '',
+      nombreUsuario: '',
     };
   },
-  mounted() {
-    // Obtén el token de alguna manera (puedes guardarlo en el localStorage, por ejemplo)
-    const token = localStorage.getItem('token');
-
-    // Realiza una solicitud GET al servidor al cargar el componente
-    axios.get('http://localhost:3000/usuarios', {
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
-    })
-      .then((response) => {
-        // Accede directamente a los datos en lugar de llamar a response.json()
-        this.usuarioNombre = response.data.decodednombre;
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error('Error al obtener la información del usuario:', error);
-      });
+  mounted () {
+    const authStore = useAuthStore();
+    this.nombreUsuario = authStore.nombreUsuario;
   },
 };
 </script>

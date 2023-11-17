@@ -1,7 +1,7 @@
 // cypress/integration/register_spec.ts
 describe('Registro de Usuario', () => {
   beforeEach(() => {
-    cy.visit('/register'); // Ajusta la ruta según la configuración de tu aplicación
+    cy.visit('/http://localhost:8080/#/register'); // Ajusta la ruta según la configuración de tu aplicación
   });
 
   it('Se intenta crear un usuario ya creado', () => {

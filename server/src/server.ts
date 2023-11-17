@@ -15,10 +15,6 @@ connectToDatabase()
 
 app.use(usuariosRouter);
 
-app.get('/', (req, res) => {
-  res.send('Esta es la página de inicio de usuarios');
-});
-
 app.listen(port, () => {
   console.log(`Servidor escuchando en http://localhost:${port}`);
 });

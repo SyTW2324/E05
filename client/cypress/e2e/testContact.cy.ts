@@ -1,7 +1,7 @@
 // cypress/integration/about_spec.ts
 describe('Página "Sobre Nosotros"', () => {
   beforeEach(() => {
-    cy.visit('/Contact'); // Ajusta la ruta según la configuración de tu aplicación
+    cy.visit('http://localhost:8080/#/Contact'); // Ajusta la ruta según la configuración de tu aplicación
   });
 
   it('Muestra los elementos y contenido esperados', () => {

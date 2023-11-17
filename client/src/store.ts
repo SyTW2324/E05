@@ -26,6 +26,7 @@ export const useAuthStore = defineStore({
       this.nombreUsuario = nombreUsuario;
       this.email = email;
       this.isAuthenticated = true;
+      localStorage.setItem('token', token);
     },
     clearAuthData() {
       this.token = '';
@@ -41,10 +42,11 @@ export const useAuthStore = defineStore({
           contrasena,
         });
 
-        const { token, nombreUsuario } = response.data;
-        localStorage.setItem('token', token);
-        this.setAuthData(token, nombreUsuario, email);
+        const token = response.data.token;
+        const nombreUsuario = response.data.nombre;
+        const email1 = response.data.email;
 
+        this.setAuthData(token, nombreUsuario, email1);
         return { success: true, message: 'Inicio de sesión exitoso' };
       } catch (error) {
         console.error('Error en la solicitud:', error);
@@ -63,7 +65,6 @@ export const useAuthStore = defineStore({
           },
           body: JSON.stringify(usuario),
         });
-
         if (response.ok) {
           const data = await response.json();
           // Almacenar el token
@@ -82,7 +83,9 @@ export const useAuthStore = defineStore({
         return { success: false, message: 'Error en la solicitud' };
       }
     },
+    logout() {
+      this.clearAuthData();
+      localStorage.removeItem('token');
+    },
   },
 });
-
-
