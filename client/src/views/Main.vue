@@ -47,7 +47,6 @@ export default {
 </script>
 
 <style scoped>
-/* Estilos de tu componente */
 
 .columns-container {
   display: flex;
@@ -57,7 +56,6 @@ export default {
 
 .column {
   width: 45%;
-  /* Ajusta el ancho de las columnas según lo necesites */
 }
 
 .column-text {
@@ -82,12 +80,11 @@ export default {
   border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.3s;
-  /* Agregar una transición suave */
 }
 
 .action-button:hover {
   background-color: #0b1825;
-  /* Cambiar el color al pasar el ratón por encima */
+
 }
 </style>
 

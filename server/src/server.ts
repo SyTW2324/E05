@@ -15,6 +15,11 @@ connectToDatabase()
 
 app.use(usuariosRouter);
 
+// Las demás rutas se definen aquí
+app.get('/', (req, res) => {
+  res.send('Esta es la ruta raíz');
+});
+
 app.listen(port, () => {
   console.log(`Servidor escuchando en http://localhost:${port}`);
 });

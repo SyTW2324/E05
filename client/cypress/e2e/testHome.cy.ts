@@ -1,7 +1,6 @@
-// cypress/integration/home_spec.ts
 describe('Página de Inicio', () => {
   it('Muestra la página de inicio con los elementos correctos', () => {
-    cy.visit('http://localhost:8080/#/'); // Asegúrate de ajustar la ruta según la configuración de tu aplicación
+    cy.visit('http://localhost:8080/#/');
 
     // Verifica que el título sea visible y tenga el texto correcto
     cy.get('.title').should('be.visible').and('have.text', 'Deck Helper');

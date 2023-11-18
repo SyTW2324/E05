@@ -56,11 +56,11 @@ import TheWelcome from '../components/TheWelcome.vue'
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.3s; /* Agregar una transición suave */
+  transition: background-color 0.3s; 
 }
 
 .action-button:hover {
-  background-color: #0b1825; /* Cambiar el color al pasar el ratón por encima */
+  background-color: #0b1825; 
 }
 
 .background {

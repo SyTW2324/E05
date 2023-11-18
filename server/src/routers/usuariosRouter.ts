@@ -1,9 +1,9 @@
 import { User } from './../models/User';
 import jwt from 'jsonwebtoken';
 import express from 'express';
-import { truncateSync } from 'fs';
 export const usuariosRouter = express.Router();
 
+// Crea un nuevo usuario
 usuariosRouter.post('/usuarios', async (req, res) => {
   try {
     const { email, contrasena, nombre } = req.body;
@@ -26,6 +26,7 @@ usuariosRouter.post('/usuarios', async (req, res) => {
   }
 });
 
+// Iniciar sesión
 usuariosRouter.post('/usuarios/login', async (req, res) => {
   try {
     const { email, contrasena } = req.body;
