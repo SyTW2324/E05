@@ -21,8 +21,8 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Start server
-      run: npm run server &
+    - name: Start program
+      run: npm run start &
 
     - name: Wait for server to start
       run: sleep 10s
