@@ -28,4 +28,4 @@ jobs:
       run: sleep 10s
 
     - name: Run Cypress tests
-      run: npm run test
+      run: npm run test1
