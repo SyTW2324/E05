@@ -19,7 +19,13 @@ jobs:
         node-version: 14
 
     - name: Install dependencies
-      run: npm install
+      run: npm install 
+    
+    - name: Install dependencies client
+      run: cd client && npm install
+    
+    - name: Install dependencies server
+      run: cd server && npm install 
 
     - name: Start program
       run: npm run start &
