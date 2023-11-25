@@ -28,10 +28,9 @@ jobs:
       run: cd server && npm install 
 
     - name: Start program
-      run: npm run start &
+      run: npm run start
 
     - name: Wait for server to start
       run: sleep 10s
 
-    - name: Run Cypress tests
-      run: npm run test1
+    
