@@ -26,6 +26,9 @@ jobs:
     
     - name: Install dependencies server
       run: cd server && npm install 
+    
+    - name: Install nvm version
+      run: nvm install 16 && nvm use 16
 
     - name: Start program
       run: npm run start
