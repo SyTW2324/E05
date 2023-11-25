@@ -31,11 +31,13 @@ jobs:
       run: sudo apt-get install curl
 
     - name: Install nvm
-      run: wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-      
-    - name: Source nvm
-      run: source ~/.bashrc && nvm --version
-        
+      run: |
+        wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+        export NVM_DIR="$HOME/.nvm"
+        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+        [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+        nvm --version
+
     - name: Install nvm version
       run: nvm install 16 
 
@@ -50,5 +52,3 @@ jobs:
     
     - name: Run tests
       run: npm run test1
-
-    
