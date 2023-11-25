@@ -31,7 +31,10 @@ jobs:
       run: sudo apt-get install curl
 
     - name: Install nvm
-      run: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+      run: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash 
+      
+    - name: Source nvm
+      run: source ~/.bashrc
         
     - name: Install nvm version
       run: nvm install 16 
