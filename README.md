@@ -8,3 +8,7 @@ Para que funcione al clonar hay que poner los siguientes comandos:
 nvm install 16
 nvm use 16
 ```
+
+## Pruebas de funcionamiento en servidor remoto
+
+Para probar la aplicación en un servidor remoto, se ha de conectar con la vpn de la ull y desde un navegador entrar a 10.6.131.8:8080
