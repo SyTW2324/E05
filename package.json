@@ -7,7 +7,8 @@
     "start": "npm run client & npm run server",
     "client": "cd client && npm run dev",
     "server": "cd server && npm run start",
-    "test": "cd client && npm run test"
+    "test": "cd client && npm run test",
+    "test1": "cd client && npm run test1"
   },
   "repository": {
     "type": "git",
