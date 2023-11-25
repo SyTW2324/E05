@@ -27,22 +27,10 @@ jobs:
     - name: Install dependencies server
       run: cd server && npm install 
 
-    - name: Install curl
-      run: sudo apt-get install curl
-
-    - name: Install nvm
-      run: |
-        wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-        export NVM_DIR="$HOME/.nvm"
-        [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-        [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-        nvm --version
-
-    - name: Install nvm version
-      run: nvm install 16 
-
-    - name: Use nvm version
-      run: nvm use 16
+    - name: Use Node.js 16
+      uses: actions/setup-node@v4
+      with:
+        node-version: 16
 
     - name: Start program
       run: npm run start
