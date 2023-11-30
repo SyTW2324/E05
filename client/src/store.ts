@@ -89,3 +89,72 @@ export const useAuthStore = defineStore({
     },
   },
 });
+
+export interface Deck {
+  email: string;
+  titulo: string;
+  deck: string[];
+  comentarios: string[];
+  usuarios: string[];
+}
+
+export const useDeckStore= defineStore({
+  id: 'deck',
+  state: () => ({
+    filteredDecks : [] as Deck[],
+    myDecks: [] as Deck[],
+  }),
+  getters: {
+    getMyDecks: (state) => state.myDecks,
+    getFilteredDecks: (state) => state.filteredDecks,
+  },
+  actions: {
+    async init(email: string) {
+      await this.loadMyDecks(email);
+    },
+    async loadMyDecks(email: string) {
+      try {
+        const response = await axios.get(`http://localhost:3000/decks/${email}`);
+        const decks: Deck[] = response.data;
+        this.myDecks = decks;
+      } catch (error) {
+        console.error('Error en la solicitud:', error);
+      }
+    },
+    async createDeck(deckData: Deck) {
+      try {
+        const response = await fetch('http://localhost:3000/decks', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: deckData.email,
+            titulo: deckData.titulo,
+            deck: deckData.deck,
+            comentarios: deckData.comentarios,
+            usuarios: deckData.usuarios,
+          }),
+        });
+    
+        if (response.ok) {
+          const data = await response.json();
+          const deck: Deck = data.deck;
+          const mensaje = data.mensaje;
+    
+          this.loadMyDecks(deckData.email);
+          this.myDecks.push(deck);
+    
+          return { success: true, message: mensaje };
+        } else {
+          const errorData = await response.json();
+          console.error('Error en la solicitud:', errorData.error);
+          return { success: false, message: `Error: ${errorData.error}` };
+        }
+      } catch (error) {
+        console.error('Error en la solicitud:', error);
+        return { success: false, message: 'Error en la solicitud' };
+      }
+    },
+  }
+});

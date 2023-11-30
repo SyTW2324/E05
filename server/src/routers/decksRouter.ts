@@ -15,7 +15,7 @@ decksRouter.post('/decks', async (req, res) => {
       }
       const deck1 = new Deck({ email, titulo, deck, comentarios, usuarios });
       await deck1.save();
-      res.status(201).json({ mensaje: 'Deck creado con éxito', deck: deck});
+      res.status(201).json({ mensaje: 'Deck creado con éxito', deck: deck1});
     }
   }
   catch (error) {

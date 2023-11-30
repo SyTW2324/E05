@@ -12,7 +12,7 @@
               ¡Se uno de ellos y crea tu mazo!
             </p>
             <div class="button-container">
-              <router-link to="/add-deck" class="action-button">Añadir un deck</router-link>
+              <router-link to="/SubirDeck" class="action-button">Añadir un deck</router-link>
             </div>
             <p><br>
               O busca un deck que te guste y pruébalo.
@@ -23,7 +23,17 @@
           </div>
         </div>
         <div class="column">
-          <p class="column-text">Echa un vistazo a tus mazos:</p>
+          <div class="column-text">
+            <p>Echa un vistazo a tus mazos:</p>
+            <div v-if="myDecks.length === 0">
+              <p>No tienes mazos todavía. ¡Crea uno!</p>
+            </div>
+            <div v-else>
+              <div v-for="deck in myDecks" :key="deck.titulo" class="deck-card">
+                <h3>{{ deck.titulo }}</h3>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -31,23 +41,28 @@
 </template>
 
 <script lang="ts">
-import { useAuthStore } from '@/store';
+import { useAuthStore, useDeckStore } from '@/store';
 
 export default {
   data() {
     return {
       nombreUsuario: '',
+      myDecks: [] as any[],
     };
   },
-  mounted () {
+  mounted() {
     const authStore = useAuthStore();
+    const email = authStore.email;
     this.nombreUsuario = authStore.nombreUsuario;
+
+    const deckStore = useDeckStore();
+    deckStore.init(email);
+    this.myDecks = deckStore.myDecks;
   },
 };
 </script>
 
 <style scoped>
-
 .columns-container {
   display: flex;
   justify-content: space-around;
