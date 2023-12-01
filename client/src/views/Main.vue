@@ -30,7 +30,9 @@
             </div>
             <div v-else>
               <div v-for="deck in myDecks" :key="deck.titulo" class="deck-card">
-                <h3>{{ deck.titulo }}</h3>
+                <router-link :to="{ path: '/MiMazo', query: { nombreMazo: deck.titulo } }">
+                  <h3 class="deck-name-button">{{ deck.titulo }}</h3>
+                </router-link>
               </div>
             </div>
           </div>

@@ -1,7 +1,3 @@
-<script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
-</script>
-
 <template>
   <div class="background">
     <h1 class="title">Deck Helper</h1>
