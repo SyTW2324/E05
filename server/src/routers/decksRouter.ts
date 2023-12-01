@@ -58,33 +58,10 @@ decksRouter.get('/decks/:email', async (req, res) => {
   }
 });
 
-// Obtener un deck con un título
-decksRouter.get('/decks/:titulo', async (req, res) => {
-  try {
-    const titulo = req.params.titulo;
-    const deck = await Deck.findOne({titulo});
-    res.json(deck);
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
 // Obtener todos los decks
 decksRouter.get('/decks', async (req, res) => {
   try {
     const decks = await Deck.find();
-    res.json(decks);
-  }
-  catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-// Obtener mazos por un filtro dado
-decksRouter.get('/decks/filtro/:filtro', async (req, res) => {
-  try {
-    const filtro = req.params.filtro;
-    const decks = await Deck.find({titulo: {$regex: filtro}});
     res.json(decks);
   }
   catch (error) {
