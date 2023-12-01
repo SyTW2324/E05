@@ -20,6 +20,6 @@ describe('Página de Inicio con sesión iniciada', () => {
         cy.contains('Añadir un deck').click();
     
         // Verifica que la nueva ruta sea correcta
-        cy.url().should('include', '/add-deck');
+        cy.url().should('include', '/SubirDeck');
       });
   });
