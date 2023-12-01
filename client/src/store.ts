@@ -106,7 +106,7 @@ export const useDeckStore= defineStore({
   }),
   getters: {
     getMyDecks: (state) => state.myDecks,
-    getFilteredDecks: (state) => state.filteredDecks,
+    getFilterDecks: (state) => state.filteredDecks,
   },
   actions: {
     async init(email: string) {
@@ -115,8 +115,11 @@ export const useDeckStore= defineStore({
     async loadMyDecks(email: string) {
       try {
         const response = await axios.get(`http://localhost:3000/decks/${email}`);
+        const response1 = await axios.get(`http://localhost:3000/decks`);
         const decks: Deck[] = response.data;
+        const decks1: Deck[] = response1.data;
         this.myDecks = decks;
+        this.filteredDecks = decks1;
       } catch (error) {
         console.error('Error en la solicitud:', error);
       }
@@ -155,6 +158,6 @@ export const useDeckStore= defineStore({
         console.error('Error en la solicitud:', error);
         return { success: false, message: 'Error en la solicitud' };
       }
-    },
+    }
   }
 });

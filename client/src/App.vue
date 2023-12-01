@@ -42,6 +42,11 @@ const isAuthenticated = () => authStore.getIsAuthenticated;
                 <router-link to="/Main" class="nav-link">Mis mazos</router-link>
               </li>
             </template>
+            <template v-if="isAuthenticated()">
+              <li class="nav-item">
+                <router-link to="/Filtrar" class="nav-link">Buscar Mazos</router-link>
+              </li>
+            </template>
             <li class="nav-item">
               <button v-if="isAuthenticated()" @click="logout" class="btn btn-link nav-link">Cerrar Sesión</button>
             </li>

@@ -1,8 +1,10 @@
 <template>
   <div class="background">
-    <div class="content-box">
-      <div class="d-flex flex-column align-items-center justify-content-center vh-100">
-        <h1>Mazo: {{ nombreMazo }}</h1>
+    <div class="content-container">
+      <div class="content-box">
+        <h1>{{ nombreMazo }}</h1>
+      </div>
+      <div class="content-box">
         <div v-for="carta in cartas" :key="carta" class="deck-card">
           <h3 class="deck-name-button">{{ carta }}</h3>
         </div>
@@ -26,11 +28,8 @@ export default {
   mounted() {
     const authStore = useAuthStore();
     const email = authStore.email;
-
-    const deckStore = useDeckStore();
-    deckStore.init(email);
-    const mazos = deckStore.myDecks;
-    
+    const deckStore = useDeckStore()
+    const mazos = deckStore.filteredDecks;
     for (let i = 0; i < mazos.length; i++) {
       if (mazos[i].titulo === this.nombreMazo) {
         const cartas = mazos[i].deck;
@@ -44,61 +43,43 @@ export default {
 };
 </script>
 
-  
 <style scoped>
-.message-container {
+body, html {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+}
+
+.content-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 33.33%;
-  margin: 0 auto;
+  margin: 20px;
 }
 
-.title {
-  color: #f5f4fc;
-  padding: 10px;
+.content-box {
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 20px;
   margin: 10px;
   border-radius: 10px;
-}
-
-.message {
-  background-color: #E0FFFF;
-  color: #000000;
-  padding: 10px;
-  margin: 10px;
-  border-radius: 10px;
-}
-
-.button {
-  background-color: #2e86de;
-  color: #fff;
-  padding: 10px;
-  margin: 10px;
-  border-radius: 10px;
-}
-
-.action-button {
-  background-color: #2e86de;
-  color: #fff;
-  padding: 10px 20px;
-  margin: 10px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background-color 0.3s;
-}
-
-.action-button:hover {
-  background-color: #0b1825;
+  max-width: 600px;
+  text-align: center;
 }
 
 .background {
-  background-image: url('https://bnetcmsus-a.akamaihd.net/cms/gallery/ASW4ACCHGE991428977059569.jpg');
+  background-image: url('https://images4.alphacoders.com/886/886168.jpg');
   background-size: cover;
   background-repeat: no-repeat;
+  background-attachment: fixed;
   text-align: center;
-  margin-top: 0px;
   height: 100vh;
+  min-height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

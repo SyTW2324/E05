@@ -7,6 +7,7 @@ import Contact from '../views/Contact.vue'
 import Main from '../views/Main.vue'
 import SubirDeck from '../views/SubirDeck.vue'
 import MiMazo from '../views/MiMazo.vue'
+import Filtrar from '../views/Filtrar.vue'
 
 const authGuard = (to, from, next) => {
   const authStore = useAuthStore();
@@ -62,6 +63,13 @@ const router = createRouter({
       meta: { requiresAuth: true },
       beforeEnter: authGuard,
       props: (route) => ({ nombreMazo: route.query.nombreMazo }),
+    },
+    {
+      path: '/Filtrar',
+      name: 'Filtrar',
+      component: () => import('../views/Filtrar.vue'),
+      meta: { requiresAuth: true },
+      beforeEnter: authGuard,
     }
   ]
 })

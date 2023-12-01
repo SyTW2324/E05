@@ -18,7 +18,7 @@
               O busca un deck que te guste y pruébalo.
             </p>
             <div class="button-container">
-              <router-link to="/search-deck" class="action-button">Buscar un deck</router-link>
+              <router-link to="/Filtrar" class="action-button">Buscar un deck</router-link>
             </div>
           </div>
         </div>
@@ -52,17 +52,24 @@ export default {
       myDecks: [] as any[],
     };
   },
-  mounted() {
-    const authStore = useAuthStore();
-    const email = authStore.email;
-    this.nombreUsuario = authStore.nombreUsuario;
+  async mounted() {
+    await this.loadUserData();
+  },
+  methods: {
+    async loadUserData() {
+      const authStore = useAuthStore();
+      const deckStore = useDeckStore();
 
-    const deckStore = useDeckStore();
-    deckStore.init(email);
-    this.myDecks = deckStore.myDecks;
+      const email = authStore.email;
+      this.nombreUsuario = authStore.nombreUsuario;
+
+      await deckStore.init(email);
+      this.myDecks = deckStore.myDecks;
+    },
   },
 };
 </script>
+
 
 <style scoped>
 .columns-container {
