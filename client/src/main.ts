@@ -9,6 +9,15 @@ app.use(pinia);
 
 const authStore = useAuthStore();
 
+// Verifica si hay un token almacenado en localStorage al iniciar la aplicación
+const storedToken = localStorage.getItem('token');
+if (storedToken) {
+  // Establece el estado de useAuthStore con el token almacenado
+  const authStore = useAuthStore();
+  authStore.setAuthData(storedToken, localStorage.getItem('nombreUsuario'), localStorage.getItem('email'));
+}
+
+
 app.use(router);
 
 app.mount('#app')

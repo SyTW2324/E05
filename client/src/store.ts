@@ -21,7 +21,7 @@ export const useAuthStore = defineStore({
     getIsAuthenticated: (state) => state.isAuthenticated,
   },
   actions: {
-    setAuthData(token: string, nombreUsuario: string, email: string) {
+    setAuthData(token: string, nombreUsuario: string , email: string) {
       this.token = token;
       this.nombreUsuario = nombreUsuario;
       this.email = email;
