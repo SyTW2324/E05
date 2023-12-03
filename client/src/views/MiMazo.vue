@@ -127,7 +127,7 @@ body {
 }
 
 .comment-container {
-  max-height: 200px; /* Ajusta la altura máxima según sea necesario */
+  max-height: 200px; 
   overflow-y: auto;
 }
 </style>
