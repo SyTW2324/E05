@@ -27,6 +27,8 @@ export const useAuthStore = defineStore({
       this.email = email;
       this.isAuthenticated = true;
       localStorage.setItem('token', token);
+      localStorage.setItem('nombreUsuario', nombreUsuario);
+      localStorage.setItem('email', email);
     },
     clearAuthData() {
       this.token = '';
@@ -158,6 +160,34 @@ export const useDeckStore= defineStore({
         console.error('Error en la solicitud:', error);
         return { success: false, message: 'Error en la solicitud' };
       }
-    }
+    },
+    async createComentario(comentario: string, usuario: string, nombreDeck: string) {
+      try {
+        const url = 'http://localhost:3000/decks/add';
+        const bodyData = {
+          titulo: nombreDeck,
+          comentario: comentario,
+          usuario: usuario
+        };
+    
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(bodyData),
+        });
+    
+        if (!response.ok) {
+          console.error('Error en la solicitud:', response.status);
+          return { success: false, message: 'Error en la solicitud' };
+        }
+        const responseData = await response.json();
+        return  { success: true, message: responseData.mensaje };
+      } catch (error) {
+        console.error('Error en la solicitud:', error);
+        return { success: false, message: 'Error en la solicitud' };
+      }
+    }    
   }
 });
