@@ -30,7 +30,7 @@ jobs:
         node-version: 16
 
     - name: Start program and wait
-      run: npm run start & wait
+      run: npm run start &
 
     - name: Run tests
       run: npm run test1
