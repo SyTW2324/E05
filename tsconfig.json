@@ -63,5 +63,5 @@
     /* Advanced Options */
     "forceConsistentCasingInFileNames": true  /* Disallow inconsistently-cased references to the same file. */
   },
-  "include": ["client/src/**/*.ts", "server/src/**/*.ts", "server/server.ts", "server/src/db.js"]
+  "include": ["client/src/**/*.ts", "server/src/**/*.ts", "server/server.ts", "server/src/db.js, src/**/*.ts", "test/**/*.spec.ts"]
 }

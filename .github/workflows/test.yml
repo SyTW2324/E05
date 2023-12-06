@@ -19,24 +19,45 @@ jobs:
         node-version: 14
 
     - name: Install dependencies
-      run: npm install 
-    
-    - name: Install dependencies client
-      run: cd client && npm install
-    
-    - name: Install dependencies server
-      run: cd server && npm install 
+      run: |
+        npm install
+        cd client && npm install
+        cd ../server && npm install
 
     - name: Use Node.js 16
       uses: actions/setup-node@v4
       with:
         node-version: 16
 
-    - name: Start program
-      run: npm run start &
+    - name: Start program and wait
+      run: npm run start & wait
 
-    - name: Wait for server to start
-      run: sleep 10s
-    
     - name: Run tests
       run: npm run test1
+
+  test2:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 14
+
+    - name: Install dependencies
+      run: |
+        npm install
+        cd client && npm install
+        cd ../server && npm install
+
+    - name: Use Node.js 16
+      uses: actions/setup-node@v4
+      with:
+        node-version: 16
+
+    - name: Run additional tests
+      run: npm run test2

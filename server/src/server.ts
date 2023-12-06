@@ -22,6 +22,8 @@ app.get('/', (req, res) => {
   res.send('Esta es la ruta raíz');
 });
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Servidor escuchando en http://localhost:${port}`);
 });
+
+export {app};
