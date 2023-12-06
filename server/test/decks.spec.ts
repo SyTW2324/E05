@@ -88,5 +88,6 @@ describe('Decks API', () => {
   // Limpiar el deck creado al final de las pruebas
   after(async () => {
     await Deck.deleteOne({titulo: 'Nuevo Deck'});
+    process.exit(0);
   });
 });
