@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Descripción de tu servidor",
   "scripts": {
-    "start": "ts-node src/server.ts"
+    "start": "ts-node src/server.ts",
+    "test": "ts-mocha --timeout 100000 --project ../tsconfig.json 'test/**/*.spec.ts'"
   },
   "keywords": [],
   "author": "Tu autor",
@@ -16,6 +17,11 @@
     "mongoose": "^8.0.0"
   },
   "devDependencies": {
+    "@types/mocha": "^10.0.6",
+    "chai": "^4.3.10",
+    "mocha": "^10.2.0",
+    "supertest": "^6.3.3",
+    "ts-mocha": "^10.0.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.2.2"
   }
