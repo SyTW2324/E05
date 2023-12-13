@@ -1,7 +1,6 @@
-// cypress/integration/about_spec.ts
 describe('Página "Sobre Nosotros"', () => {
   beforeEach(() => {
-    cy.visit('/Contact'); // Ajusta la ruta según la configuración de tu aplicación
+    cy.visit('http://localhost:8080/#/Contact');
   });
 
   it('Muestra los elementos y contenido esperados', () => {
@@ -18,8 +17,8 @@ describe('Página "Sobre Nosotros"', () => {
     // Verifica el contenido del segundo bloque
     cy.get('.content-box').eq(2).within(() => {
       cy.get('h2').should('have.text', 'Contactanos');
-      cy.get('lu').should('exist'); // Ajusta el selector según la estructura real del marcado
-      cy.get('lu p').should('have.length', 2); // Ajusta según la cantidad real de elementos <p> dentro de <lu>
+      cy.get('lu').should('exist');
+      cy.get('lu p').should('have.length', 2);
       cy.get('p').last().should('have.text', 'O en el telefono: +34 111 22 33 44');
     });
   });

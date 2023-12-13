@@ -21,11 +21,14 @@ export const useAuthStore = defineStore({
     getIsAuthenticated: (state) => state.isAuthenticated,
   },
   actions: {
-    setAuthData(token: string, nombreUsuario: string, email: string) {
+    setAuthData(token: string, nombreUsuario: string , email: string) {
       this.token = token;
       this.nombreUsuario = nombreUsuario;
       this.email = email;
       this.isAuthenticated = true;
+      localStorage.setItem('token', token);
+      localStorage.setItem('nombreUsuario', nombreUsuario);
+      localStorage.setItem('email', email);
     },
     clearAuthData() {
       this.token = '';
@@ -41,10 +44,11 @@ export const useAuthStore = defineStore({
           contrasena,
         });
 
-        const { token, nombreUsuario } = response.data;
-        localStorage.setItem('token', token);
-        this.setAuthData(token, nombreUsuario, email);
+        const token = response.data.token;
+        const nombreUsuario = response.data.nombre;
+        const email1 = response.data.email;
 
+        this.setAuthData(token, nombreUsuario, email1);
         return { success: true, message: 'Inicio de sesión exitoso' };
       } catch (error) {
         console.error('Error en la solicitud:', error);
@@ -63,7 +67,6 @@ export const useAuthStore = defineStore({
           },
           body: JSON.stringify(usuario),
         });
-
         if (response.ok) {
           const data = await response.json();
           // Almacenar el token
@@ -82,7 +85,109 @@ export const useAuthStore = defineStore({
         return { success: false, message: 'Error en la solicitud' };
       }
     },
+    logout() {
+      this.clearAuthData();
+      localStorage.removeItem('token');
+    },
   },
 });
 
+export interface Deck {
+  email: string;
+  titulo: string;
+  deck: string[];
+  comentarios: string[];
+  usuarios: string[];
+}
 
+export const useDeckStore= defineStore({
+  id: 'deck',
+  state: () => ({
+    filteredDecks : [] as Deck[],
+    myDecks: [] as Deck[],
+  }),
+  getters: {
+    getMyDecks: (state) => state.myDecks,
+    getFilterDecks: (state) => state.filteredDecks,
+  },
+  actions: {
+    async init(email: string) {
+      await this.loadMyDecks(email);
+    },
+    async loadMyDecks(email: string) {
+      try {
+        const response = await axios.get(`http://localhost:3000/decks/${email}`);
+        const response1 = await axios.get(`http://localhost:3000/decks`);
+        const decks: Deck[] = response.data;
+        const decks1: Deck[] = response1.data;
+        this.myDecks = decks;
+        this.filteredDecks = decks1;
+      } catch (error) {
+        console.error('Error en la solicitud:', error);
+      }
+    },
+    async createDeck(deckData: Deck) {
+      try {
+        const response = await fetch('http://localhost:3000/decks', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email: deckData.email,
+            titulo: deckData.titulo,
+            deck: deckData.deck,
+            comentarios: deckData.comentarios,
+            usuarios: deckData.usuarios,
+          }),
+        });
+    
+        if (response.ok) {
+          const data = await response.json();
+          const deck: Deck = data.deck;
+          const mensaje = data.mensaje;
+    
+          this.loadMyDecks(deckData.email);
+          this.myDecks.push(deck);
+    
+          return { success: true, message: mensaje };
+        } else {
+          const errorData = await response.json();
+          console.error('Error en la solicitud:', errorData.error);
+          return { success: false, message: `Error: ${errorData.error}` };
+        }
+      } catch (error) {
+        console.error('Error en la solicitud:', error);
+        return { success: false, message: 'Error en la solicitud' };
+      }
+    },
+    async createComentario(comentario: string, usuario: string, nombreDeck: string) {
+      try {
+        const url = 'http://localhost:3000/decks/add';
+        const bodyData = {
+          titulo: nombreDeck,
+          comentario: comentario,
+          usuario: usuario
+        };
+    
+        const response = await fetch(url, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(bodyData),
+        });
+    
+        if (!response.ok) {
+          console.error('Error en la solicitud:', response.status);
+          return { success: false, message: 'Error en la solicitud' };
+        }
+        const responseData = await response.json();
+        return  { success: true, message: responseData.mensaje };
+      } catch (error) {
+        console.error('Error en la solicitud:', error);
+        return { success: false, message: 'Error en la solicitud' };
+      }
+    }    
+  }
+});

@@ -5,6 +5,8 @@ interface IDeck extends Document {
   email: string;
   titulo: string;
   deck: string[];
+  comentarios: string[];
+  usuarios: string[];
 }
 
 // Define el esquema del usuario utilizando la clase Schema de Mongoose
@@ -22,6 +24,16 @@ const DeckSchema: Schema = new Schema({
   deck: {
     type: [String],
     required: true,
+    unique: false,
+  },
+  comentarios: {
+    type: [String],
+    required: false,
+    unique: false,
+  },
+  usuarios: {
+    type: [[String]],
+    required: false,
     unique: false,
   },
 });

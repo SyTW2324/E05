@@ -5,6 +5,9 @@ import Registro from '../views/Registro.vue'
 import Login from '../views/Login.vue'
 import Contact from '../views/Contact.vue'
 import Main from '../views/Main.vue'
+import SubirDeck from '../views/SubirDeck.vue'
+import MiMazo from '../views/MiMazo.vue'
+import Filtrar from '../views/Filtrar.vue'
 
 const authGuard = (to, from, next) => {
   const authStore = useAuthStore();
@@ -43,6 +46,28 @@ const router = createRouter({
       path: '/Main',
       name: 'Main',
       component: () => import('../views/Main.vue'),
+      meta: { requiresAuth: true },
+      beforeEnter: authGuard,
+    },
+    {
+      path: '/SubirDeck',
+      name: 'SubirDeck',
+      component: () => import('../views/SubirDeck.vue'),
+      meta: { requiresAuth: true },
+      beforeEnter: authGuard,
+    },
+    {
+      path: '/MiMazo',
+      name: 'MiMazo',
+      component: () => import('../views/MiMazo.vue'),
+      meta: { requiresAuth: true },
+      beforeEnter: authGuard,
+      props: (route) => ({ nombreMazo: route.query.nombreMazo }),
+    },
+    {
+      path: '/Filtrar',
+      name: 'Filtrar',
+      component: () => import('../views/Filtrar.vue'),
       meta: { requiresAuth: true },
       beforeEnter: authGuard,
     }

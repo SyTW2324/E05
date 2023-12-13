@@ -1,7 +1,6 @@
-// cypress/integration/register_spec.ts
 describe('Registro de Usuario', () => {
   beforeEach(() => {
-    cy.visit('/register'); // Ajusta la ruta según la configuración de tu aplicación
+    cy.visit('/http://localhost:8080/#/register');
   });
 
   it('Se intenta crear un usuario ya creado', () => {
@@ -16,7 +15,6 @@ describe('Registro de Usuario', () => {
     // Verifica que el mensaje de éxito sea visible
     cy.get('p').should('be.visible').and('have.text', 'Error: El usuario ya existe');
 
-    // También puedes realizar más verificaciones si es necesario
   });
 
   it('Muestra un mensaje de error para correo no válido', () => {
@@ -28,7 +26,7 @@ describe('Registro de Usuario', () => {
 
     // Verifica que el mensaje de error sea visible
     cy.on('window:alert', (message) => {
-      expect(message).to.equal('El correo electrónico no es válido'); // Ajusta el mensaje según tu aplicación
+      expect(message).to.equal('El correo electrónico no es válido');
     });
   });
 

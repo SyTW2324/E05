@@ -1,12 +1,12 @@
 import { User } from './../models/User';
 import jwt from 'jsonwebtoken';
 import express from 'express';
-import { truncateSync } from 'fs';
 export const usuariosRouter = express.Router();
 
+// Crea un nuevo usuario
 usuariosRouter.post('/usuarios', async (req, res) => {
   try {
-    const { email, contrasena, nombre } = req.body; // Cambia "contrasena" a "password"
+    const { email, contrasena, nombre } = req.body;
     if (!nombre || !email || !contrasena) {
       res.status(400).json({ error: 'Faltan datos' });
     } else {
@@ -16,16 +16,17 @@ usuariosRouter.post('/usuarios', async (req, res) => {
       }
       const usuario = new User({ nombre, email, contrasena });
       await usuario.save();
-      const token = jwt.sign({ nombre: usuario.nombre, email: usuario.email }, 'secreto', {
+      const token = jwt.sign({ nombre, email}, 'secreto', {
         expiresIn: '1h',
       });
-      res.status(201).json({ mensaje: 'Usuario creado con éxito', token, nombre: usuario.nombre, email: usuario.email });
+      res.status(201).json({ mensaje: 'Usuario creado con éxito', token: token, nombre: nombre, email: email});
     }
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
+// Iniciar sesión
 usuariosRouter.post('/usuarios/login', async (req, res) => {
   try {
     const { email, contrasena } = req.body;
@@ -35,26 +36,13 @@ usuariosRouter.post('/usuarios/login', async (req, res) => {
     if (!usuario || usuario.contrasena !== contrasena) {
       res.status(401).json({ error: 'Credenciales inválidas' });
       return;
-    }
-
-    const token = jwt.sign({ nombre: usuario.nombre, email: usuario.email }, 'secreto', {
+    } 
+    const nombre = usuario.nombre;
+    const token = jwt.sign({nombre , email}, 'secreto', {
       expiresIn: '1h',
     });
-    
-    res.json({ mensaje: 'Inicio de sesión exitoso', token, nombre: usuario.nombre, email: usuario.email });
+    res.json({ mensaje: 'Inicio de sesión exitoso', token: token, nombre: nombre, email: email});
   } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-});
-
-usuariosRouter.get('/usuarios', async (req, res) => {
-  try{
-    //a traves del token se puede obtener el usuario
-    const token = req.headers.authorization?.split(' ')[1];
-    const decoded = jwt.verify(token, 'secreto');
-    const decodednombre = decoded.nombre;
-    res.json({decodednombre});
-  }catch(error){
     res.status(500).json({ error: error.message });
   }
 });

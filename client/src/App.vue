@@ -6,20 +6,11 @@ const router = useRouter();
 const authStore = useAuthStore();
 
 function logout() {
-  authStore.clearAuthData();
+  authStore.logout();
   router.push('/');
 }
 
 const isAuthenticated = () => authStore.getIsAuthenticated;
-
-const showLogoutButton = () => {
-  const route = router.currentRoute.value;
-  return isAuthenticated() && route.meta.requiresAuth && !route.meta.hideLogoutButton;
-};
-
-router.beforeEach(() => {
-  authStore.isAuthenticated = !!localStorage.getItem('token');
-});
 </script>
 
 <template>
@@ -49,6 +40,11 @@ router.beforeEach(() => {
             <template v-if="isAuthenticated()">
               <li class="nav-item">
                 <router-link to="/Main" class="nav-link">Mis mazos</router-link>
+              </li>
+            </template>
+            <template v-if="isAuthenticated()">
+              <li class="nav-item">
+                <router-link to="/Filtrar" class="nav-link">Buscar Mazos</router-link>
               </li>
             </template>
             <li class="nav-item">

@@ -1,6 +1,7 @@
 import cors from 'cors';
 import { connectToDatabase } from './db';
 import {usuariosRouter } from './routers/usuariosRouter';
+import {decksRouter } from './routers/decksRouter';
 import express from 'express';
 const app = express();
 const port = 3000;
@@ -14,11 +15,15 @@ connectToDatabase()
   .catch(error => console.error(error));
 
 app.use(usuariosRouter);
+app.use(decksRouter);
 
+// Las demás rutas se definen aquí
 app.get('/', (req, res) => {
-  res.send('Esta es la página de inicio de usuarios');
+  res.send('Esta es la ruta raíz');
 });
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Servidor escuchando en http://localhost:${port}`);
 });
+
+export {app};

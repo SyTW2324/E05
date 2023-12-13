@@ -92,6 +92,5 @@ export default {
   text-align: center;
 }
 
-/* Resto de tus estilos */
 </style>
 

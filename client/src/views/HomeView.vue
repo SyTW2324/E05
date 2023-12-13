@@ -1,32 +1,9 @@
-<script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
-</script>
-
-<script lang="ts">
-export default {
-  data() {
-    return {
-      serverMessage: '', // Aquí almacenaremos el mensaje del servidor
-    };
-  },
-  mounted() {
-    // Realiza una solicitud GET al servidor al cargar el componente
-    fetch('http://localhost:3000/') // Asegúrate de ajustar la URL del servidor si es diferente
-      .then((response) => response.text())
-      .then((data) => {
-        this.serverMessage = data; // Almacena el mensaje del servidor en la variable serverMessage
-        console.log(data);
-      });
-  },
-};
-</script>
-
 <template>
   <div class="background">
     <h1 class="title">Deck Helper</h1>
     <div class="message-container">
       <p class="message">Bienvenido a la mejor página web para poder subir y compartir mazos de Hearthstone</p>
-      <p class="message">{{ serverMessage }}</p>
+      <p class="message">Esta es la página de inicio de usuarios</p>
     </div>
     <div class="buttons">
       <router-link to="/register" class="action-button">Registrarse</router-link>
@@ -75,11 +52,11 @@ export default {
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  transition: background-color 0.3s; /* Agregar una transición suave */
+  transition: background-color 0.3s; 
 }
 
 .action-button:hover {
-  background-color: #0b1825; /* Cambiar el color al pasar el ratón por encima */
+  background-color: #0b1825; 
 }
 
 .background {
@@ -91,8 +68,3 @@ export default {
   height: 100vh;
 }
 </style>
-
-
-
-
-
