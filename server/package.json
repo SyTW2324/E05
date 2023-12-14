@@ -4,7 +4,8 @@
   "description": "Descripción de tu servidor",
   "scripts": {
     "start": "ts-node src/server.ts",
-    "test": "ts-mocha --timeout 100000 --project ../tsconfig.json 'test/**/*.spec.ts'"
+    "test": "ts-mocha --timeout 100000 --project ../tsconfig.json 'test/**/*.spec.ts'",
+    "coverage": "nyc npm run test"
   },
   "keywords": [],
   "author": "Tu autor",
@@ -20,6 +21,7 @@
     "@types/mocha": "^10.0.6",
     "chai": "^4.3.10",
     "mocha": "^10.2.0",
+    "nyc": "^15.1.0",
     "supertest": "^6.3.3",
     "ts-mocha": "^10.0.0",
     "ts-node": "^10.9.1",
