@@ -43,6 +43,7 @@ describe('Usuarios API', () => {
     });
   });
 
+  
   describe('POST /usuarios/login', () => {
     it('Inicia sesión correctamente y retorna un token', async () => {
       const response = await request(app)
