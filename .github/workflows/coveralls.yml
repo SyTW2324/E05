@@ -38,7 +38,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Coveralls GitHub Action
-      env:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-      uses: coverallsapp/github-action@v2.2.3
+      - name: Coveralls
+        uses: coverallsapp/github-action@v1
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
