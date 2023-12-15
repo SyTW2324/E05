@@ -5,7 +5,7 @@
   "scripts": {
     "start": "ts-node src/server.ts",
     "test": "ts-mocha --timeout 100000 --project ../tsconfig.json 'test/**/*.spec.ts'",
-    "coverage": "nyc npm run test && nyc report --reporter=text-lcov"
+    "coverage": "nyc npm run test && nyc report --reporter=text-lcov | coveralls"
   },
   "keywords": [],
   "author": "Tu autor",
