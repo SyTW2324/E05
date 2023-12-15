@@ -9,7 +9,8 @@
     "server": "cd server && npm run start",
     "test": "cd client && npm run test",
     "test1": "cd client && npm run test1",
-    "test2": "cd server && npm run test"
+    "test2": "cd server && npm run test",
+    "coverage": "cd server && npm run coverage"
   },
   "repository": {
     "type": "git",
