@@ -39,4 +39,4 @@ jobs:
       uses: coverallsapp/github-action@v1
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        file: ./server/coverage/lcov.info
+        path-to-lcov: ${{ github.workspace }}/server/coverage/lcov.info
