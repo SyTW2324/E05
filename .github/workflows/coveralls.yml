@@ -34,7 +34,7 @@ jobs:
       run: |
         cd server
         npm run coverage
-        echo "lcov.info is generated at: $(pwd)/coverage/lcov.info"
+        echo "lcov.info is generated at: ${{ github.workspace }}/server/coverage/lcov.info"
 
     - name: Coveralls
       uses: coverallsapp/github-action@v1
