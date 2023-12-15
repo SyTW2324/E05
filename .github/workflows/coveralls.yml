@@ -31,17 +31,16 @@ jobs:
 
     - name: Generate coverage info
       id: coverage
-      run: npm run coverage
+      run: |
+        cd server
+        npm run coverage
 
-  coveralls:
-    needs: build
-    runs-on: ubuntu-latest
+    - name: Show lcov.info path
+      run: |
+        echo "lcov.info is located at: $(pwd)/coverage/lcov.info"
 
-    steps:
-      - name: Change to server directory
-        run: cd server
-  
-      - name: Coveralls
-        uses: coverallsapp/github-action@v1
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Coveralls
+      uses: coverallsapp/github-action@v1
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        lcov_path: './server/coverage/lcov.info'
