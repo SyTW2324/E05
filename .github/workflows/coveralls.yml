@@ -35,12 +35,8 @@ jobs:
         cd server
         npm run coverage
 
-    - name: Show lcov.info path
-      run: |
-        echo "lcov.info is located at: $(pwd)/coverage/lcov.info"
-
     - name: Coveralls
       uses: coverallsapp/github-action@v1
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
-        lcov_path: './server/coverage/lcov.info'
+        path-to-lcov: /home/runner/work/E05/E05/coverage/lcov.info
