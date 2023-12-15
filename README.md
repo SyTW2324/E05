@@ -2,6 +2,9 @@
 
 * example of a [Monorepo Architecture](https://levelup.gitconnected.com/monorepo-architecture-with-simple-example-484ca725bf2c) 
 
+[![Coveralls](https://github.com/SyTW2324/E05/actions/workflows/coveralls.yml/badge.svg)](https://github.com/SyTW2324/E05/actions/workflows/coveralls.yml)
+[![CI](https://github.com/SyTW2324/E05/actions/workflows/test.yml/badge.svg)](https://github.com/SyTW2324/E05/actions/workflows/test.yml)
+
 Para que funcione al clonar hay que poner los siguientes comandos:
 
 ```
