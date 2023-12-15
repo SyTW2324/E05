@@ -31,9 +31,7 @@ jobs:
 
     - name: Generate coverage info
       id: coverage
-      run: |
-        cd server
-        npm run coverage
+      run: npm run coverage
 
     - name: Coveralls
       uses: coverallsapp/github-action@v1
