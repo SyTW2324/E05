@@ -31,9 +31,12 @@ jobs:
 
     - name: Generate coverage info
       id: coverage
-      run: npm run coverage
+      run: |
+        cd server
+        npm run coverage
 
     - name: Coveralls
       uses: coverallsapp/github-action@v1
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
+        base-path: /home/runner/work/E05/E05
